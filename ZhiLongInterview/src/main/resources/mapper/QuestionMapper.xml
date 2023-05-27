@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.wzl.zhilonginterview.mapper.QuestionMapper">
+
+
+    <insert id="insertOne">
+        INSERT INTO question (c_id, path, title,`order`)
+        SELECT
+            #{cId},#{path},#{title},
+            IFNULL(MAX(`order`), 0) + 1
+        FROM
+            question
+        WHERE
+            c_id = #{cId}
+    </insert>
+
+    <select id="getByCIdQuestions" resultType="org.wzl.zhilonginterview.entity.Question">
+        select q.*
+        from question q
+                 inner join interview_collection i on q.c_id = i.id
+        where q.c_id = #{cId};
+    </select>
+
+</mapper>

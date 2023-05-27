@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.wzl.zhilonginterview.mapper.InterviewCollectionMapper">
+
+    <resultMap id="resultMap" type="org.wzl.zhilonginterview.entity.InterviewCollection">
+        <id property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="authorId" column="author_id"/>
+        <result property="createTime" column="create_time"/>
+        <result property="description" column="description"/>
+    </resultMap>
+
+    <sql id="allColumn">
+        `interview_collection`.id,`interview_collection`.`name`,`interview_collection`.author_id,`interview_collection`.create_time,`interview_collection`.description
+    </sql>
+
+
+    <select id="page" resultType="org.wzl.zhilonginterview.dto.InterviewCollectionDTO">
+        SELECT
+            i.id, i.name, i.create_time, i.description, u.username AS 'authorName',
+                CEIL(totalRows / 2) AS totalPages
+        FROM
+            `interview_collection` i
+                INNER JOIN `user` u ON i.author_id = u.id,
+            (SELECT COUNT(*) AS totalRows FROM `interview_collection`) AS counts
+            LIMIT #{page}, #{limit};
+    </select>
+
+</mapper>
