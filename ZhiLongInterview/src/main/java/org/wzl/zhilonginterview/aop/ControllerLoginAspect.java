@@ -10,7 +10,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
-import static org.wzl.zhilonginterview.constant.LogConstant.*;
+import static org.wzl.zhilonginterview.constant.LogConstant.LOG_INFO_PREFIX;
+import static org.wzl.zhilonginterview.constant.LogConstant.LOG_INFO_SUFFIX;
 
 /**
  * @author : 卫志龙
